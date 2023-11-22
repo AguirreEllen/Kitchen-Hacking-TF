@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat entre Usuarios</title>
+    <style>
+        body {
+            background-color: #087440;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            border: 5px solid #ff9900; /* Borde naranja grueso en todo el cuerpo de la página */
+        }
+
+        #header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #header img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #chat-box {
+            height: 300px;
+            width: 70%;
+            border: 5px solid #000; /* Borde negro grueso alrededor del área del chat */
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff; /* Fondo blanco para el chat */
+        }
+
+        #message-input {
+            width: 60%;
+            padding: 8px;
+            margin-right: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #ffd6e1; /* Fondo rosa cuando se envía el mensaje */
+            color: #000;
+            padding: 8px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+
+        #emoticon-section {
+            margin-top: 10px;
+        }
+
+        .emoticon {
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        #config-wheel {
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        .config-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            right: 0;
+        }
+
+        #profile-link {
+            margin-top: 10px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header">
+        <img src="cb10a24a-430a-4f37-8f18-ed742aeb1d8e.jpg" alt="Imagen de encabezado">
+    </div>
+
+    <div id="chat-box"></div>
+    <div class="message-container">
+        <img id="profile-pic" src="profile-pic.jpg" alt="Foto de perfil">
+        <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
+        <button onclick="enviarMensaje()">Enviar</button>
+        <div id="emoticon-section">
+            <span class="emoticon" onclick="reaccionar('😊')">😊</span>
+            <span class="emoticon" onclick="reaccionar('👍')">👍</span>
+            <!-- Agrega más emoticones según tus necesidades -->
+        </div>
+        <span id="config-wheel" onclick="mostrarConfig()">⚙️</span>
+        <div id="config-menu" class="config-menu">
+            <!-- Aquí puedes agregar opciones de configuración -->
+            <p>Configuración 1</p>
+            <p>Configuración 2</p>
+            <!-- Agrega más opciones según tus necesidades -->
+        </div>
+    </div>
+
+    <a href="tu_perfil.html" id="profile-link">Ir a mi perfil</a>
+
+    <script>
+        function enviarMensaje() {
+            var mensaje = document.getElementById("message-input").value;
+
+            if (mensaje.trim() !== "") {
+                var chatBox = document.getElementById("chat-box");
+                var nuevoMensaje = document.createElement("div");
+                nuevoMensaje.classList.add("message-container");
+
+                var imagenPerfil = document.createElement("img");
+                imagenPerfil.src = "profile-pic.jpg";
+                imagenPerfil.alt = "Foto de perfil";
+                imagenPerfil.id = "profile-pic";
+
+                var mensajeUsuario = document.createElement("div");
+                mensajeUsuario.classList.add("user-message");
+                mensajeUsuario.textContent = mensaje;
+
+                nuevoMensaje.appendChild(imagenPerfil);
+                nuevoMensaje.appendChild(mensajeUsuario);
+
+                chatBox.appendChild(nuevoMensaje);
+
+                // Limpiar el campo de entrada después de enviar el mensaje
+                document.getElementById("message-input").value = "";
+
+                // Desplazarse hacia abajo para mostrar el último mensaje
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function reaccionar(emoticon) {
+            var mensajeInput = document.getElementById("message-input");
+            mensajeInput.value += emoticon;
+        }
+
+        function mostrarConfig() {
+            var configMenu = document.getElementById("config-menu");
+            configMenu.style.display = (configMenu.style.display === "block") ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
